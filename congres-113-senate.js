@@ -4846,34 +4846,79 @@
 }
  
  
-//var data.results[0].members
+var members = data.results[0].members
 
-function addMultTable(array,array2) {
-        var body = document.getElementsByTagName("body")[0];
-        var table = document.createElement("table");
-	 	var tableBody= document.createElement("tbody");
-        for (var j = 0; j <= array2; j++) {
-            var row = document.createElement("tr");
+
+function senate(members) {
+        var table = document.getElementById("senate-data");
+		var thead = document.createElement("thead");
+	
+		var  row0 = document.createElement("tr");
+		var  c1 = document.createElement("th");
+		c1.textContent = "senator";
+		var  c2 = document.createElement("th");
+		var  c3 = document.createElement("th");
+		var  c4 = document.createElement("th");
+		var  c5 = document.createElement("th");
+	
+	 	var tableBody= document.createElement("tbody"); 
+	
+	
+	for (var i = 0; i < members.length; i++) {
+		var row = document.createElement("tr");
+		
+		var name = members[i].first_name + members[i].last_name;
+		var col0 = document.createElement("a");
+		
+		col0.setAttribute("href",members[i].url);
+		col0.textContent = name;
+		
+		
+		var col1 = document.createElement("td");
+		col1.appendChild(col0);
+		
+		
+		var party = members[i].party
+		var col2= document.createElement("td");
+		col2.textContent = party
 			
-            for (var i = 0; i < array; i++) {
-             var col = document.createElement("td");
-				
-                  var colText = document.createTextNode("nombre "+j+", party "+i+"estado"); 
+		var state = members[i].state
+		var col3 = document.createElement("td");
+		col3.textContent = state
+			
+		var seniority = members[i].seniority
+		var col4  = document.createElement("td");
+		col4.textContent = seniority
+			
+		var votes_with_party_pct = members[i].votes_with_party_pct
+		var col5  = document.createElement("td");
+		col5.textContent = votes_with_party_pct
+		
+	
+		row.appendChild(col1);
+        row.appendChild(col2);
+        row.appendChild(col3);
+        row.appendChild(col4);
+        row.appendChild(col5);
+		tableBody.appendChild(row);
+		}
+	
+	
+		row0.appendChild(c1);
+        row0.appendChild(c2);
+       	row0.appendChild(c3);
+        row0.appendChild(c4);
+        row0.appendChild(c5);
+		thead.appendChild(row0);
+	
+	table.appendChild(tableBody);
+	table.appendChild(thead);
+	
+	
+}
 
-                col.appendChild(colText);
-                row.appendChild(col);
-            }
-
-            tableBody.appendChild(row);
-			  }
-	 	table.appendChild(tableBody); 
-	 
-        body.appendChild(table);
-
-    }
-	addMultTable(5,8);
+senate(members);
 
 
- JSON.stringify (data,null,2)
+
  
- document.getElementById("senate-data").innerHTML = JSON.stringify(data,null,2);
