@@ -29,7 +29,7 @@ function senate(members) {
 		
 		col0.setAttribute("href",members[i].url);
 		col0.textContent = name;
-		
+		//if ()
 		
 		var col1 = document.createElement("td");
 		col1.appendChild(col0);
@@ -77,27 +77,73 @@ function senate(members) {
 
 senate(members);
 
-function filter(members) {
 
-	var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    } 
+
+
+
+
+
+var filtro = document.querySelectorAll("form1")
+var array = []
+var newarray = []
+
+function all(){
+	for(i = 0; i < members.length; i++)
+var party = members[i].party
+		if(party == "R"){
+			array.push.members[i]
+		}
+
+	for(i = 0; i < members.length; i++)
+var party = members[i].party
+		if(party == "D"){
+			array.push.members[i]
+		}
+	
+		for(i = 0; i < members.length; i++)
+var party = members[i].party
+		if(party == "I"){
+			array.push.members[i]
+		}
+}
+		
+		
+		
+		
+/*
+este es el check del boton cuando funciones todo
+checkbox.addEventListener("change", validaCheckbox, false);
+
+function validaCheckbox(){
+  var checked = checkbox0.checked;
+  if(checked){
+    alert('checkbox esta seleccionado');
   }
 }
+
+<label for="test"><input type="checkbox" name="test" id="test">
+  Pincha aquí
+</label>*/
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 //--------------hacer funcion return para midlename------------> 
 //--------------hacer grids------------> 
+//function removeClass(element, classToRemove){//
+/*    var currentClassValue = element.className;
+ 
+    if (currentClassValue == classToRemove) {
+        element.className = "";
+        return;
+    }*/
