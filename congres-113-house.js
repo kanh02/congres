@@ -3,33 +3,20 @@ var members = data.results[0].members
 
 function senate(members) {
         var table = document.getElementById("house-data");
-		var thead = document.createElement("thead");
-	
-		var  row0 = document.createElement("tr");
-		var  c1 = document.createElement("th");
-		c1.textContent = "Senator";
-		var  c2 = document.createElement("th");
-		c2.textContent = "Party";
-		var  c3 = document.createElement("th");
-		c3.textContent = "State";
-		var  c4 = document.createElement("th");
-		c4.textContent = "Seniority";
-		var  c5 = document.createElement("th");
-		c5.textContent = "Percentage";
-
-	
-	 	var tableBody= document.createElement("tbody"); 
+		var tableBody= document.createElement("tBody");
+		tableBody.setAttribute("id","tBody")
 	
 	
 	for (var i = 0; i < members.length; i++) {
 		var row = document.createElement("tr");
 		
-		var name = members[i].first_name + members[i].last_name;
+		var nom =" ";
+		var name = members[i].first_name + nom + members[i].last_name;
 		var col0 = document.createElement("a");
 		
 		col0.setAttribute("href",members[i].url);
 		col0.textContent = name;
-		
+		//if ()
 		
 		var col1 = document.createElement("td");
 		col1.appendChild(col0);
@@ -61,18 +48,122 @@ function senate(members) {
 		tableBody.appendChild(row);
 		}
 	
-	
-		row0.appendChild(c1);
-        row0.appendChild(c2);
-       	row0.appendChild(c3);
-        row0.appendChild(c4);
-        row0.appendChild(c5);
-		thead.appendChild(row0);
-	
 	table.appendChild(tableBody);
-	table.appendChild(thead);
-	
-	
+
 }
 
 senate(members);
+
+
+
+
+document.getElementById("city").onchange = function (){
+	All();
+}
+
+	var option = states();
+
+function All(){
+	var filtro = document.querySelectorAll("input[name=party]:checked");
+	
+	var tableBody= document.createElement("tBody"); 
+
+	var filteredMembers = []
+	var selectedValue = city.options[city.selectedIndex].value;
+
+	
+	for(a = 0; a < filtro.length; a++){
+		
+	for(i = 0; i < members.length; i++){
+		var party = members[i].party
+		var states = members[i].state
+
+			if( (party == filtro[a].value ) && (states == selectedValue)) {
+			filteredMembers.push(members[i]);
+			}else if ( (party == filtro[a].value ) && (selectedValue == "All")) {
+			filteredMembers.push(members[i]);
+			}
+}
+}
+	return filteredMembers;
+
+
+}
+document.getElementById("city").onchange = function (){
+	removeTable();
+	senate(All());
+}
+
+
+document.getElementById("form1").onchange = function(){
+	removeTable();
+	senate(All());
+	
+}
+
+
+
+function removeTable(){
+	document.getElementById("tBody").remove();
+}
+
+
+
+
+
+function states(){
+	var allStates = []
+	
+	for(s = 0; s < members.length; s++){
+		if( allStates.indexOf(members[s].state)  === -1){
+			
+		allStates.push(members[s].state);
+	}
+	}
+	
+	allStates.sort();
+	return allStates;
+	
+	
+	}
+
+
+
+
+function drownMenu(){
+	
+	var menu = document.getElementById("city");
+	var option = states();
+ 	
+	
+	for(var m = 0; m < option.length; m++){
+    	option.value = option[m];
+		var span = document.createElement("option");
+    	span.textContent = option[m];
+		menu.appendChild(span);
+
+}
+}
+	
+	drownMenu();
+
+
+
+
+
+function filterDrown(){
+	var selectedValue = city.options[city.selectedIndex].value;
+	var resulFil = []
+	var option = states();
+	console.log(selectedValue);
+	
+	for(t = 0; t < members.length; t++){
+		if(selectedValue == members[t].state){
+			resulFil.push(members[t]);
+		}
+		}
+	
+	console.log(resulFil)
+
+}
+	
