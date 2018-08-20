@@ -4,10 +4,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<link rel="stylesheet" href="Styles/stylemain.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
-    
     <body>
 		<div class="container">
          <nav class="navbar navbar-inverse">
@@ -20,13 +20,27 @@
               <li class="dropdown" >
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Congress 113<span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                  <li><a href="senate-starter-page.html">Senate</a></li>
+                  <li ><a href="house-starter-page.html">House</a></li>
+                </ul>
+              </li>
+			   	<li ><a class ="dropdown-toogle" data-toogle="dropdown" href="#">Attendance<span class ="caret"></span></a></li>
+				<li class="dropdown" >
+                <ul class="dropdown-menu">
                   <li class="active"><a href="senate-starter-page.html">Senate</a></li>
                   <li><a href="house-starter-page.html">House</a></li>
                 </ul>
               </li>
+				<li><a class ="dropdown-toogle" data-toogle="dropdown" href="#">Party Loyalty<span class ="caret"></span></a></li>
+				<li class="dropdown" >
+                <ul class="dropdown-menu">
+                  <li><a href="senate-starter-page.html">Senate</a></li>
+                  <li ><a href="house-starter-page.html">House</a></li>
+                </ul>
+              </li>
             </ul>
           </div>
-        </nav>        
+        </nav>          
 			<!--Table container-->
 			<div class="panel-heading"></div>
 			<div class="panel-body">
@@ -59,5 +73,5 @@
 		</div>
 		<script src="data-senate.js"></script>
 		<script src="congres-113-senate.js"></script>
-</body>
+	</body>
 </html>
