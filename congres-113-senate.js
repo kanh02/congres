@@ -17,7 +17,6 @@ function senate(members) {
 		
 		col0.setAttribute("href",members[i].url);
 		col0.textContent = name;
-		//if ()
 		
 		var col1 = document.createElement("td");
 		col1.appendChild(col0);
