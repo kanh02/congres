@@ -1,26 +1,167 @@
-var members = data.results[0].members
-var members2 = data.results[0].members
+/*var members = data.results[0].members
+var members2 = data.results[0].members*/
+
+
+var data;
+var members;
+var sortedMembers;
+var sortedMembersInverse;
+var numD;
+var numR;
+var numI;
+var demo_ptc;
+var repu_ptc;
+var least;
+	var most;
+var leastengade;
+var mostengade;
+	var statistics = {
+	
+	"number_of_Democrats":numD,
+	"number_of_Republicans":numR,
+	"number_of_Independents":numI,
+	"average_Vote_With_Party_Demo":demo_ptc,
+	"average_Vote_With_Party_Repu":repu_ptc,
+	"members_Who_Least_Often_Vote_with_Their_Party":least,
+	"members_Who_Most_Often_Vote_with_Their_Party":most,
+	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
+	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,
+	
+	
+}
+
+fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
+ 
+   method: "GET",
+   headers: {
+       'X-API-Key': 'pmqDNmvWUtCTN7wj4hFYHNeopxEGihOQpjAc4iff'
+   }
+}).then(function (response) {
+ 
+   if (response.ok) {
+       // add a new promise to the chain
+       return response.json();
+   }
+   // signal a server error to the chain
+   throw new Error(response.statusText);
+}).then(function (json) {
+   // equals to .success in JQuery Ajax call
+   	data = json;
+	console.log(data)
+	
+	members = data.results[0].members
+	 sortedMembers = members;
+	 sortedMembersInverse = sortedMembers;
+//	
+   
+	
+	countMembers(members,Democrats,"D");
+	countMembers(members,Republicans,"R");
+	countMembers(members,Independents,"I");
+	  numD = Democrats.length
+	  numR = Republicans.length
+	 numI = Independents.length
+	findAverageVotes(Democrats);
+	console.log(findAverageVotes(Democrats))
+	findAverageVotes(Republicans);
+	sortVotes(members);
+	sortVotesInv();
+	sortbymissedVotes();
+	sortbymissedVotesInv();
+	leastOften(members,sortVotes(),least);
+    leastOften(members,sortVotesInv(),most);
+    engangement(members,sortbymissedVotesInv(),leastengade);
+    engangement(members,sortbymissedVotes(),mostengade);
+	console.log(members)
+	
+statistics = {
+	
+	"number_of_Democrats":numD,
+	"number_of_Republicans":numR,
+	"number_of_Independents":numI,
+	"average_Vote_With_Party_Demo":demo_ptc,
+	"average_Vote_With_Party_Repu":repu_ptc,
+	"members_Who_Least_Often_Vote_with_Their_Party":least,
+	"members_Who_Most_Often_Vote_with_Their_Party":most,
+	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
+	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,
+	
+	
+}
+	
+}).then(function(){
+	console.log(statistics)
+	Table();
+//	callFuntions();
+	
+  
+}).catch(function (error) {
+   // called when an error occurs anywhere in the chain
+   console.log("Request failed: " + error.message);
+});
+
+
+
+
+
+/*
+
+var data1;
+
+fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
+ 
+   method: "GET",
+   headers: {
+       'X-API-Key': 'pmqDNmvWUtCTN7wj4hFYHNeopxEGihOQpjAc4iff'
+   }
+}).then(function (response) {
+ 
+   if (response.ok) {
+       // add a new promise to the chain
+       return response.json();
+   }
+   // signal a server error to the chain
+   throw new Error(response.statusText);
+}).then(function (json) {
+   // equals to .success in JQuery Ajax call
+   data1 = json;
+	console.log(data1)
+  
+}).catch(function (error) {
+   // called when an error occurs anywhere in the chain
+   console.log("Request failed: " + error.message);
+});
+
+
+
+
+*/
+
+
+
+
+
+//////////////////////////////////////////////////////////call ajax///////////////////////////////////////////////////////////////
 	
 	var Democrats = []
  	var Republicans = []
  	var Independents = []
 	
-function countMembers(Arr1,letter){
+function countMembers(members,Arr1,letter){
 
 	for (var i = 0; i < members.length; i++) {
-		
 		if(members[i].party == letter){
 			Arr1.push(members[i]);
 		}
 	}
 }
-countMembers(Democrats,"D");
-countMembers(Republicans,"R");
-countMembers(Independents,"I");
+//countMembers(Democrats,"D");
+//countMembers(Republicans,"R");
+//countMembers(Independents,"I");
 
-var numD = Democrats.length
-var numR = Republicans.length
-var numI = Independents.length
+//var numD = Democrats.length
+//var numR = Republicans.length
+//var numI = Independents.length
 
 //contar cuantos hay en cada partido
 
@@ -50,8 +191,8 @@ function findAverageVotes (Array){
 	
 //	
 //	
-var sortedMembers = members;	
 function sortVotes(){
+//var sortedMembers = members;	
 return sortedMembers.sort(function(a, b){return a.votes_with_party_pct - b.votes_with_party_pct});
 }
 
@@ -59,8 +200,8 @@ return sortedMembers.sort(function(a, b){return a.votes_with_party_pct - b.votes
 
 
 
-var sortedMembersInverse = sortedMembers;
 function sortVotesInv(){
+//var sortedMembersInverse = sortedMembers;
 return sortedMembersInverse.sort(function(a, b){return b.votes_with_party_pct - a.votes_with_party_pct});
 }
 //sortVotesInv();
@@ -75,8 +216,8 @@ return sortedMembers.sort(function(a, b){return a.missed_votes_pct - b.missed_vo
 
 
 
-var sortedMembersInverse = sortedMembers;
 function sortbymissedVotesInv(){
+var sortedMembersInverse = sortedMembers;
 return sortedMembersInverse.sort(function(a, b){return b.missed_votes_pct - a.missed_votes_pct});
 }
 
@@ -87,7 +228,7 @@ return sortedMembersInverse.sort(function(a, b){return b.missed_votes_pct - a.mi
 	var least = []
 	var most = []
 
-function leastOften(ArrayVote,arraynew){
+function leastOften(members,ArrayVote,arraynew){
 	var total = (members.length * 10)/100;
 	total= total.toFixed(0);
 	console.log(total);
@@ -107,15 +248,15 @@ function leastOften(ArrayVote,arraynew){
 	}
 		console.log(arraynew);		
 }
-leastOften(sortVotes(),least);
-leastOften(sortVotesInv(),most);
+//leastOften(sortVotes(),least);
+//leastOften(sortVotesInv(),most);
 
 
 
 	var leastengade = []
 	var mostengade = []
 	
-function engangement(ArrayVote,arraynew){
+function engangement(members,ArrayVote,arraynew){
 	var total = (members.length * 10)/100;
 	total= total.toFixed(0);
 	console.log(total);
@@ -135,28 +276,28 @@ function engangement(ArrayVote,arraynew){
 	}
 		console.log(arraynew);		
 }
-engangement(sortbymissedVotesInv(),leastengade);
-engangement(sortbymissedVotes(),mostengade);
+//engangement(sortbymissedVotesInv(),leastengade);
+//engangement(sortbymissedVotes(),mostengade);
 
 console.log(leastengade)
 
  
 	
-
-	var statistics = {
-	
-	"number_of_Democrats":numD,
-	"number_of_Republicans":numR,
-	"number_of_Independents":numI,
-	"average_Vote_With_Party_Demo":demo_ptc,
-	"average_Vote_With_Party_Repu":repu_ptc,
-	"members_Who_Least_Often_Vote_with_Their_Party":least,
-	"members_Who_Most_Often_Vote_with_Their_Party":most,
-	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
-	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,
-	
-	
-}
+//
+//	var statistics = {
+//	
+//	"number_of_Democrats":numD,
+//	"number_of_Republicans":numR,
+//	"number_of_Independents":numI,
+//	"average_Vote_With_Party_Demo":demo_ptc,
+//	"average_Vote_With_Party_Repu":repu_ptc,
+//	"members_Who_Least_Often_Vote_with_Their_Party":least,
+//	"members_Who_Most_Often_Vote_with_Their_Party":most,
+//	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
+//	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,
+//	
+//	
+//}
 
 /////////////////////////////////////////////////Tables Functions///////////////////////////////////////////////////////////////////////////
 function Table() {
@@ -172,7 +313,7 @@ function Table() {
 		var col2 = document.createElement("td");
 		var col3  = document.createElement("td");
 		var col4 = document.createElement("td");
-		
+
 		if( t == 0){
 		col1.textContent = "Democrat";
 		col2.textContent = statistics.number_of_Democrats
@@ -203,7 +344,9 @@ function Table() {
 		}
 	table.appendChild(tableBody);
 }
+/*
 Table();
+*/
 
 
 function Table2(array,id){
@@ -290,6 +433,13 @@ function Table3(array,id){
 	table.appendChild(tableBody);
 		}
 
+
+
+
+
+
+
+
 function callFuntions(){
 	
 	if(document.getElementById("attendance") != null  ){
@@ -298,12 +448,12 @@ function callFuntions(){
 	}else if(document.getElementById("loyalty") != null){
 		Table3(least,"senate-loyal");
 		Table3(most,"senate-loyal2");
-
-		
 	}
 	   
 }
+/*
 callFuntions()
+*/
 
 
 
