@@ -11,10 +11,11 @@ var numR;
 var numI;
 var demo_ptc;
 var repu_ptc;
-var least;
-	var most;
+var least=[];
+var most=[];
 var leastengade;
 var mostengade;
+
 	var statistics = {
 	
 	"number_of_Democrats":numD,
@@ -47,32 +48,46 @@ fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
 }).then(function (json) {
    // equals to .success in JQuery Ajax call
    	data = json;
-	console.log(data)
 	
-	members = data.results[0].members
+	 members = data.results[0].members
+	
 	 sortedMembers = members;
-	 sortedMembersInverse = sortedMembers;
-//	
-   
+	 sortedMembersInverse = sortedMembers;   
 	
 	countMembers(members,Democrats,"D");
 	countMembers(members,Republicans,"R");
 	countMembers(members,Independents,"I");
-	  numD = Democrats.length
-	  numR = Republicans.length
-	 numI = Independents.length
+	numD = Democrats.length
+	numR = Republicans.length
+	numI = Independents.length
+	
 	findAverageVotes(Democrats);
-	console.log(findAverageVotes(Democrats))
 	findAverageVotes(Republicans);
+	demo_ptc = findAverageVotes(Democrats)
+	repu_ptc = findAverageVotes(Republicans)
+	
 	sortVotes(members);
-	sortVotesInv();
-	sortbymissedVotes();
-	sortbymissedVotesInv();
-	leastOften(members,sortVotes(),least);
-    leastOften(members,sortVotesInv(),most);
-    engangement(members,sortbymissedVotesInv(),leastengade);
-    engangement(members,sortbymissedVotes(),mostengade);
-	console.log(members)
+	console.log(sortVotes)
+	
+	sortVotesInv(members);
+	console.log(sortVotesInv)
+	
+	sortbymissedVotes(sortedMembersInverse);
+	console.log(sortbymissedVotes)
+	
+	sortbymissedVotesInv(sortedMembersInverse);
+	console.log(sortbymissedVotesInv(sortedMembersInverse))
+	
+	leastOften(members,sortVotes(sortedMembers),least);
+    leastOften(members,sortVotesInv(sortedMembers),most);
+	console.log(least)
+	console.log(most)
+	
+		
+    engangement(members,sortbymissedVotesInv(sortedMembersInverse),leastengade);
+    engangement(members,sortbymissedVotes(sortedMembersInverse),mostengade);
+//	leastengade = engangement(members,sortbymissedVotesInv(sortedMembersInverse),leastengade)
+//	mostengade = engangement(members,sortbymissedVotes(sortedMembersInverse),mostengade)
 	
 statistics = {
 	
@@ -84,15 +99,13 @@ statistics = {
 	"members_Who_Least_Often_Vote_with_Their_Party":least,
 	"members_Who_Most_Often_Vote_with_Their_Party":most,
 	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
-	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,
-	
-	
+	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,	
 }
 	
 }).then(function(){
 	console.log(statistics)
 	Table();
-//	callFuntions();
+	callFuntions(least,most,leastengade,mostengade);
 	
   
 }).catch(function (error) {
@@ -104,7 +117,6 @@ statistics = {
 
 
 
-/*
 
 var data1;
 
@@ -135,7 +147,6 @@ fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
 
 
 
-*/
 
 
 
@@ -181,18 +192,19 @@ function findAverageVotes (Array){
 		var finalAverage = avg.toFixed(2);
 		return(finalAverage);
 }
-	var demo_ptc = findAverageVotes(Democrats)
+/*	var demo_ptc = findAverageVotes(Democrats)
 	var repu_ptc = findAverageVotes(Republicans)
-	
+	*/
 //cantidad de votos por partido//
 	
 	
 	
 	
-//	
-//	
-function sortVotes(){
+
+
+function sortVotes(members){
 //var sortedMembers = members;	
+console.log(sortedMembers)
 return sortedMembers.sort(function(a, b){return a.votes_with_party_pct - b.votes_with_party_pct});
 }
 
@@ -200,23 +212,27 @@ return sortedMembers.sort(function(a, b){return a.votes_with_party_pct - b.votes
 
 
 
-function sortVotesInv(){
+function sortVotesInv(Members){
 //var sortedMembersInverse = sortedMembers;
+	console.log(sortedMembers)
 return sortedMembersInverse.sort(function(a, b){return b.votes_with_party_pct - a.votes_with_party_pct});
 }
-//sortVotesInv();
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // votos ordenadamente negativo//
 
-function sortbymissedVotes(){
+function sortbymissedVotes(sortedMembersInverse){
+console.log(sortbymissedVotes)
 return sortedMembers.sort(function(a, b){return a.missed_votes_pct - b.missed_votes_pct});
 }
 
+
 // votos ordenadamente positivo//
 
-
-
-function sortbymissedVotesInv(){
+function sortbymissedVotesInv(sortedMembersInverse){
+	console.log(sortbymissedVotesInv)
 var sortedMembersInverse = sortedMembers;
 return sortedMembersInverse.sort(function(a, b){return b.missed_votes_pct - a.missed_votes_pct});
 }
@@ -225,8 +241,8 @@ return sortedMembersInverse.sort(function(a, b){return b.missed_votes_pct - a.mi
 
 
 
-	var least = []
-	var most = []
+//	var least = []
+//	var most = []
 
 function leastOften(members,ArrayVote,arraynew){
 	var total = (members.length * 10)/100;
@@ -252,9 +268,9 @@ function leastOften(members,ArrayVote,arraynew){
 //leastOften(sortVotesInv(),most);
 
 
-
 	var leastengade = []
 	var mostengade = []
+
 	
 function engangement(members,ArrayVote,arraynew){
 	var total = (members.length * 10)/100;
@@ -442,7 +458,7 @@ function Table3(array,id){
 
 function callFuntions(){
 	
-	if(document.getElementById("attendance") != null  ){
+	if(document.getElementById("attendance") != null ){
 		Table2(leastengade,"senate-glance1");
 		Table2(mostengade,"senate-glance2");
 	}else if(document.getElementById("loyalty") != null){
