@@ -1,13 +1,48 @@
-var members = data.results[0].members
+//var members = data.results[0].members
 
+
+
+var data;
+fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
+ 
+   method: "GET",
+   headers: {
+       'X-API-Key': 'pmqDNmvWUtCTN7wj4hFYHNeopxEGihOQpjAc4iff'
+   }
+}).then(function (response) {
+ 
+   if (response.ok) {
+       // add a new promise to the chain
+       return response.json();
+   }
+   // signal a server error to the chain
+   throw new Error(response.statusText);
+}).then(function (json) {
+   // equals to .success in JQuery Ajax call
+    data = json;
+	console.log(data)
+	members = data.results[0].members
+	console.log(members)
+	
+
+	functioncomplete2(members);
+	
+}).catch(function (error) {
+   // called when an error occurs anywhere in the chain
+   console.log("Request failed: " + error.message);
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+function functioncomplete2(members){
+	var 	members = data.results[0].members
 
 function senate(members) {
         var table = document.getElementById("house-data");
 		var tableBody= document.createElement("tBody");
 		tableBody.setAttribute("id","tBody")
-	
-	
-	for (var i = 0; i < members.length; i++) {
+		for (var i = 0; i < members.length; i++) {
 		var row = document.createElement("tr");
 		
 		var nom =" ";
@@ -16,11 +51,9 @@ function senate(members) {
 		
 		col0.setAttribute("href",members[i].url);
 		col0.textContent = name;
-		//if ()
 		
 		var col1 = document.createElement("td");
 		col1.appendChild(col0);
-		
 		
 		var party = members[i].party
 		var col2= document.createElement("td");
@@ -39,7 +72,6 @@ function senate(members) {
 		var col5  = document.createElement("td");
 		col5.textContent = votes_with_party_pct + por
 		
-	
 		row.appendChild(col1);
         row.appendChild(col2);
         row.appendChild(col3);
@@ -47,58 +79,50 @@ function senate(members) {
         row.appendChild(col5);
 		tableBody.appendChild(row);
 		}
-	
 	table.appendChild(tableBody);
-
 }
-
 senate(members);
 
 
 
 
 document.getElementById("city").onchange = function (){
-	All();
+	All(members);
 }
 
 	var option = states();
 
-function All(){
+function All(array){
 	var filtro = document.querySelectorAll("input[name=party]:checked");
-	
 	var tableBody= document.createElement("tBody"); 
-
 	var filteredMembers = []
 	var selectedValue = city.options[city.selectedIndex].value;
-
 	
 	for(a = 0; a < filtro.length; a++){
 		
-	for(i = 0; i < members.length; i++){
-		var party = members[i].party
-		var states = members[i].state
-
+	for(i = 0; i < array.length; i++){
+		var party = array[i].party
+		var states = array[i].state
 			if( (party == filtro[a].value ) && (states == selectedValue)) {
-			filteredMembers.push(members[i]);
+			filteredMembers.push(array[i]);
 			}else if ( (party == filtro[a].value ) && (selectedValue == "All")) {
-			filteredMembers.push(members[i]);
+			filteredMembers.push(array[i]);
 			}
 }
 }
-	return filteredMembers;
-
-
+//	return filteredMembers;
 }
+	All(members);
+	
 document.getElementById("city").onchange = function (){
 	removeTable();
-	senate(All());
+	senate(All(members));
 }
 
 
 document.getElementById("form1").onchange = function(){
 	removeTable();
-	senate(All());
-	
+	senate(All(members));
 }
 
 
@@ -109,42 +133,29 @@ function removeTable(){
 
 
 
-
-
 function states(){
 	var allStates = []
-	
 	for(s = 0; s < members.length; s++){
 		if( allStates.indexOf(members[s].state)  === -1){
-			
 		allStates.push(members[s].state);
 	}
 	}
-	
 	allStates.sort();
 	return allStates;
-	
-	
 	}
-
 
 
 
 function drownMenu(){
-	
 	var menu = document.getElementById("city");
 	var option = states();
- 	
-	
 	for(var m = 0; m < option.length; m++){
     	option.value = option[m];
 		var span = document.createElement("option");
     	span.textContent = option[m];
 		menu.appendChild(span);
-
 }
 }
-	
 	drownMenu();
 
 
@@ -155,7 +166,6 @@ function filterDrown(){
 	var selectedValue = city.options[city.selectedIndex].value;
 	var resulFil = []
 	var option = states();
-	console.log(selectedValue);
 	
 	for(t = 0; t < members.length; t++){
 		if(selectedValue == members[t].state){
@@ -166,4 +176,6 @@ function filterDrown(){
 	console.log(resulFil)
 
 }
+}
+
 	

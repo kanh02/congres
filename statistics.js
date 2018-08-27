@@ -1,7 +1,9 @@
 /*var members = data.results[0].members
 var members2 = data.results[0].members*/
 
-
+var app = new Vue
+	
+	
 var data;
 var members;
 var sortedMembers;
@@ -30,6 +32,10 @@ var mostengade;
 	
 	
 }
+	
+	
+	if((window.location.pathname == "/senate_house-attendance-starter-page.html")||(window.location.pathname =="/senate_house-party-loyalty-starter-page.html")){
+		
 
 fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
  
@@ -50,6 +56,7 @@ fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
    	data = json;
 	
 	 members = data.results[0].members
+	 app.senateData = values[1];
 	
 	 sortedMembers = members;
 	 sortedMembersInverse = sortedMembers;   
@@ -115,10 +122,11 @@ statistics = {
 
 
 
+	}else if((window.location.pathname == "/house_house-attendance.html")||(window.location.pathname =="/house_house-loyalty.html")) {
 
 
 
-var data1;
+var data;
 
 fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
  
@@ -136,14 +144,78 @@ fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
    throw new Error(response.statusText);
 }).then(function (json) {
    // equals to .success in JQuery Ajax call
-   data1 = json;
-	console.log(data1)
+     
+	data = json;
+	
+	members = data.results[0].members
+	
+	sortedMembers = members;
+	sortedMembersInverse = sortedMembers;   
+	
+	countMembers(members,Democrats,"D");
+	countMembers(members,Republicans,"R");
+	countMembers(members,Independents,"I");
+	numD = Democrats.length
+	numR = Republicans.length
+	numI = Independents.length
+	
+	findAverageVotes(Democrats);
+	findAverageVotes(Republicans);
+	demo_ptc = findAverageVotes(Democrats)
+	repu_ptc = findAverageVotes(Republicans)
+	
+	sortVotes(members);
+	console.log(sortVotes)
+	
+	sortVotesInv(members);
+	console.log(sortVotesInv)
+	
+	sortbymissedVotes(sortedMembersInverse);
+	console.log(sortbymissedVotes)
+	
+	sortbymissedVotesInv(sortedMembersInverse);
+	console.log(sortbymissedVotesInv(sortedMembersInverse))
+	
+	leastOften(members,sortVotes(sortedMembers),least);
+    leastOften(members,sortVotesInv(sortedMembers),most);
+	console.log(least)
+	console.log(most)
+	
+		
+    engangement(members,sortbymissedVotesInv(sortedMembersInverse),leastengade);
+    engangement(members,sortbymissedVotes(sortedMembersInverse),mostengade);
+//	leastengade = engangement(members,sortbymissedVotesInv(sortedMembersInverse),leastengade)
+//	mostengade = engangement(members,sortbymissedVotes(sortedMembersInverse),mostengade)
+	
+statistics = {
+	
+	"number_of_Democrats":numD,
+	"number_of_Republicans":numR,
+	"number_of_Independents":numI,
+	"average_Vote_With_Party_Demo":demo_ptc,
+	"average_Vote_With_Party_Repu":repu_ptc,
+	"members_Who_Least_Often_Vote_with_Their_Party":least,
+	"members_Who_Most_Often_Vote_with_Their_Party":most,
+	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
+	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,	
+}
+	
+}).then(function(){
+	console.log(statistics)
+	Table();
+	callFuntions(least,most,leastengade,mostengade);
+	
   
 }).catch(function (error) {
    // called when an error occurs anywhere in the chain
    console.log("Request failed: " + error.message);
 });
 
+
+
+
+
+}
 
 
 
@@ -461,16 +533,55 @@ function callFuntions(){
 	if(document.getElementById("attendance") != null ){
 		Table2(leastengade,"senate-glance1");
 		Table2(mostengade,"senate-glance2");
+//		Table2(mostengade,"attendance-house");
+//		Table2(mostengade,"attendance-house2");
+
 	}else if(document.getElementById("loyalty") != null){
 		Table3(least,"senate-loyal");
 		Table3(most,"senate-loyal2");
+//		Table3(most,"house-loyal");
+//		Table3(most,"house-loyal2");
+
+		
 	}
 	   
 }
-/*
-callFuntions()
-*/
+//callFuntionsSenate(){
+//if(document.getElementById("attendance") != null ){
+//		Table2(leastengade,"senate-glance1");
+//		Table2(mostengade,"senate-glance2");
+//		}else if(document.getElementById("loyalty") != null){
+//		Table3(least,"senate-loyal");
+//		Table3(most,"senate-loyal2");
+//}
+//callFuntionsHouse(){
+//if(document.getElementById("attendance") != null ){
+//		Table2(leastengade,"attendance-house");
+//		Table2(mostengade,"attendance-house2");
+//		}else if(document.getElementById("loyalty") != null){
+//		Table3(least,"house-loyal");
+//		Table3(most,"house-loyal2");
+//}
 
+//
+//function callFetch{
+//if (json == data){
+//	callFuntionsSenate();
+//}
+//else if(json == data1 ){
+//	callFuntionsHouse();
+//}
+//}
 
-
+//var myVar;
+//
+//function myFunction() {
+//    myVar = setTimeout(showPage, 2000);
+//}
+//
+//function showPage() {
+//  document.getElementById("loader").style.display = "none";
+//  document.getElementById("myDiv").style.display = "block";
+//}
+//
 
