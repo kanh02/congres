@@ -1,9 +1,4 @@
-/*var members = data.results[0].members
-var members2 = data.results[0].members*/
 
-var app = new Vue
-	
-	
 var data;
 var members;
 var sortedMembers;
@@ -56,7 +51,6 @@ fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
    	data = json;
 	
 	 members = data.results[0].members
-	 app.senateData = values[1];
 	
 	 sortedMembers = members;
 	 sortedMembersInverse = sortedMembers;   
@@ -296,7 +290,6 @@ return sortedMembersInverse.sort(function(a, b){return b.votes_with_party_pct - 
 // votos ordenadamente negativo//
 
 function sortbymissedVotes(sortedMembersInverse){
-console.log(sortbymissedVotes)
 return sortedMembers.sort(function(a, b){return a.missed_votes_pct - b.missed_votes_pct});
 }
 
@@ -304,7 +297,6 @@ return sortedMembers.sort(function(a, b){return a.missed_votes_pct - b.missed_vo
 // votos ordenadamente positivo//
 
 function sortbymissedVotesInv(sortedMembersInverse){
-	console.log(sortbymissedVotesInv)
 var sortedMembersInverse = sortedMembers;
 return sortedMembersInverse.sort(function(a, b){return b.missed_votes_pct - a.missed_votes_pct});
 }
@@ -313,32 +305,24 @@ return sortedMembersInverse.sort(function(a, b){return b.missed_votes_pct - a.mi
 
 
 
-//	var least = []
-//	var most = []
+
 
 function leastOften(members,ArrayVote,arraynew){
 	var total = (members.length * 10)/100;
 	total= total.toFixed(0);
-	console.log(total);
 	
 	for(var x = 0; x < total; x++){
 		arraynew.push(ArrayVote[x])
 	}
-	console.log(arraynew);
 	
 	for(var z =0; z< ArrayVote.length; z++){
 		if(arraynew[arraynew.length-1].votes_with_party_pct === ArrayVote[z].votes_with_party_pct){
-			
-	if(arraynew.indexOf(ArrayVote[z]) ==  -1){
+		if(arraynew.indexOf(ArrayVote[z]) ==  -1){
 		arraynew.push(ArrayVote[z])
 		}
 	}
 	}
-		console.log(arraynew);		
 }
-//leastOften(sortVotes(),least);
-//leastOften(sortVotesInv(),most);
-
 
 	var leastengade = []
 	var mostengade = []
@@ -371,23 +355,7 @@ console.log(leastengade)
 
  
 	
-//
-//	var statistics = {
-//	
-//	"number_of_Democrats":numD,
-//	"number_of_Republicans":numR,
-//	"number_of_Independents":numI,
-//	"average_Vote_With_Party_Demo":demo_ptc,
-//	"average_Vote_With_Party_Repu":repu_ptc,
-//	"members_Who_Least_Often_Vote_with_Their_Party":least,
-//	"members_Who_Most_Often_Vote_with_Their_Party":most,
-//	"members_Who_Least_Missed_Vote_with_Their_Party":leastengade,
-//	"members_Who_Most_Missed_Vote_with_Their_Party":mostengade,
-//	
-//	
-//}
-
-/////////////////////////////////////////////////Tables Functions///////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////Tables 
 function Table() {
      
 	var table = document.getElementById("senate-glance");
@@ -432,9 +400,6 @@ function Table() {
 		}
 	table.appendChild(tableBody);
 }
-/*
-Table();
-*/
 
 
 function Table2(array,id){
@@ -481,7 +446,6 @@ function Table2(array,id){
 	
 
 
-
 function Table3(array,id){
 
 	var table = document.getElementById(id);
@@ -520,8 +484,6 @@ function Table3(array,id){
   
 	table.appendChild(tableBody);
 		}
-
-
 
 
 
@@ -585,3 +547,14 @@ function callFuntions(){
 //}
 //
 
+
+
+//
+//<!--    <body onload="myfunction()" style="margin:0;">-->
+//<!--
+//		<div id="loader">
+//			<div style="display:none;" id="myDiv" class="animate-bottom">
+//				<h2>holi!</h2>
+//				<p>please wait angry man.....</p>
+//-->
+//			

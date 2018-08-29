@@ -92,6 +92,10 @@ document.getElementById("city").onchange = function (){
 
 	var option = states();
 
+	
+	
+	
+	
 function All(array){
 	var filtro = document.querySelectorAll("input[name=party]:checked");
 	var tableBody= document.createElement("tBody"); 
@@ -110,8 +114,18 @@ function All(array){
 			}
 }
 }
-//	return filteredMembers;
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	All(members);
 	
 document.getElementById("city").onchange = function (){
