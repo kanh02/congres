@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	<link rel="stylesheet" href="Styles/stylemain.css">
+	<link rel="stylesheet" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
@@ -39,7 +39,7 @@
 				</ul>
 			</div>
 		</nav>
-		<!--Table container-->
+		<!----------------------------Table container------------------------------>
 		<div class="container" id="app">
 			<div class="container-fluid">
 				<div class="col-sm-6">
@@ -95,6 +95,10 @@
 								<td>{{member.missed_votes_pct}}</td>
 							</tr>
 						</table>
+						<div class="loader" id="loader">
+							<div id="myDiv" class="animate-bottom">
+							</div>
+						</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
@@ -111,6 +115,10 @@
 							<td>{{member.missed_votes_pct}}</td>
 						</tr>
 					</table>
+					<div class="loader" id="loader1" >
+						<div id="myDiv1" class="animate-bottom">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

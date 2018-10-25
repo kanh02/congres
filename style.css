@@ -1,0 +1,133 @@
+#loader{
+	z-index: 1;
+	margin: 0 auto;
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+#loader1{
+	z-index: 1;
+	margin: 0 auto;
+	border: 16px solid #f3f3f3;
+	border-radius: 50%;
+	border-top: 16px solid #3498db;
+	width: 120px;
+	height: 120px;
+	-webkit-animation: spin 2s linear infinite;
+	animation: spin 2s linear infinite;
+}
+
+
+
+
+
+@-webkit-keyframes spin {
+	0% {
+		-webkit-transform: rotate(0deg);
+	}
+
+	100% {
+		-webkit-transform: rotate(360deg);
+	}
+}
+
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+.animate-bottom {
+	position: relative;
+	-webkit-animation-name: animatebottom;
+	-webkit-animation-duration: 1s;
+	animation-name: animatebottom;
+	animation-duration: 1s
+}
+
+@-webkit-keyframes animatebottom {
+	from {
+		bottom: -100px;
+		opacity: 0
+	}
+
+	to {
+		bottom: 0px;
+		opacity: 1
+	}
+}
+
+@keyframes animatebottom {
+	from {
+		bottom: -100px;
+		opacity: 0
+	}
+
+	to {
+		bottom: 0;
+		opacity: 1
+	}
+}
+
+
+/*----------------------------------------acordeon inicia aca----------------------------------------*/
+
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+.accordion {
+
+	font-family: Lato;
+	margin-bottom: 20px;
+	background-color: #2f2f97;
+	border-radius: 6px;
+}
+
+.accordion .header {
+	height: 40px;
+	line-height: 40px;
+	padding: 0 40px 0 8px;
+	position: relative;
+	color: #fff;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+}
+
+.accordion .header-icon {
+	position: absolute;
+	top: 5px;
+	right: 8px;
+	transform: rotate(0deg);
+	transition-duration: 0.3s;
+}
+
+.accordion .body {
+	overflow: hidden;
+	background-color: #fff;
+	border: 10px solid white;
+	border-top: 0;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
+	transition: 150ms ease-out;
+}
+
+.accordion .body-inner {
+	padding: 8px;
+	overflow-wrap: break-word;
+}
+
+.accordion .header-icon.rotate {
+	transform: rotate(180deg);
+	transition-duration: 0.3s;
+}
+
+
+/*--------------------------acordeon termina------------------------------------------*/

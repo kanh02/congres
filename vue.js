@@ -1,20 +1,75 @@
+Vue.component('accordion', {
+  props: ['theme'],
+  
+  template: `<div class="accordion" v-bind:class="theme">
+    <div class="header" v-on:click="toggle">
+      <slot name="header">+More info</slot>
+      <i class="fa fa-2x fa-angle-down header-icon" v-bind:class="{ rotate: show }"></i>
+    </div>
+    <transition name="accordion"
+      v-on:before-enter="beforeEnter" v-on:enter="enter"
+      v-on:before-leave="beforeLeave" v-on:leave="leave">
+      <div class="body" v-show="show">
+        <div class="body-inner">
+          <slot></slot>
+        </div>
+      </div>
+    </transition>
+  </div>`,
+
+  data() {
+    return {
+      show: false
+    };
+  },
+  
+  methods: {
+    toggle: function() {
+      this.show = !this.show;
+    },
+    beforeEnter: function(el) {
+      el.style.height = '0';
+    },
+    enter: function(el) {
+      el.style.height = el.scrollHeight + 'px';
+    },
+    beforeLeave: function(el) {
+      el.style.height = el.scrollHeight + 'px';
+    },
+    leave: function(el) {
+      el.style.height = '0';
+    }
+  }
+});
+
 var app = new Vue({
 	el: '#app',
 	data: {
 		members: [],
 		membersAll: [],
+		myVar: '',
+		url:''
 
 	},
 	created: function () {
+		this.getUrl();
 		this.getData();
 	},
 	methods: {
+		getUrl: function(){
+			var direccion="";
+			if (document.getElementById("senate") != null) {
+				direccion ="senate";
+			} else if (document.getElementById("house") != null){
+				direccion="house";
+			}
+			this.url = direccion;		
+	},
 
 
 		getData: function () {
-			if (document.getElementById("senate") != null) {
 
-				fetch("https://api.propublica.org/congress/v1/113/senate/members.json", {
+				fetch("https://api.propublica.org/congress/v1/113/" + this.url +"/members.json", {
 					method: "GET",
 					headers: {
 						'X-API-Key': 'pmqDNmvWUtCTN7wj4hFYHNeopxEGihOQpjAc4iff'
@@ -27,30 +82,11 @@ var app = new Vue({
 				}).then(function (json) {
 					app.members = json.results[0].members
 					app.membersAll = json.results[0].members
+					app.loader();
 					app.filterDrown();
 					app.drownMenu();
-					console.log(app.members)
 				})
-			} else if (document.getElementById("house") != null) {
 
-				fetch("https://api.propublica.org/congress/v1/113/house/members.json", {
-					method: "GET",
-					headers: {
-						'X-API-Key': 'pmqDNmvWUtCTN7wj4hFYHNeopxEGihOQpjAc4iff'
-					}
-				}).then(function (response) {
-					if (response.ok) {
-						return response.json();
-					}
-					throw new Error(response.statusText);
-				}).then(function (json) {
-					app.members = json.results[0].members
-					app.membersAll = json.results[0].members
-					app.filterDrown();
-					app.drownMenu();
-					console.log(app.members)
-				})
-			}
 		},
 
 		filterDrown: function () {
@@ -91,7 +127,6 @@ var app = new Vue({
 			var filtro = document.querySelectorAll("input[name=party]:checked");
 			var filteredMembers = [];
 			var selectedValue = city.options[city.selectedIndex].value;
-			console.log(selectedValue)
 
 			for (a = 0; a < filtro.length; a++) {
 
@@ -106,6 +141,10 @@ var app = new Vue({
 				}
 			}
 			app.members = filteredMembers;
+		},
+
+		loader: function () {
+			document.getElementById("loader").style.display = "none";
 		}
 	}
 })

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+
+	<div class="container" id="app">
+		<div class="container-fluid">
+			<div class="col-sm-6">
+				<h2>Attendance</h2>
+				<p>The Constitution specifies that a majority of members constitutes a quorum to do business in each house. Representatives and senators rarely force the presence of a quorum by demanding quorum calls; thus, in most cases, debates continue even if a majority is not present.</p>
+
+				<p>The Senate uses roll-call votes; a clerk calls out the names of all the senators, each senator stating "aye" or "no" when his or her name is announced. The House reserves roll-call votes for the most formal matters, as a roll-call of all 435 representatives takes quite some time; normally, members vote by electronic device. In the case of a tie, the motion in question fails. In the Senate, the Vice President may (if present) cast the tiebreaking vote.</p>
+			</div>
+
+			<div class="col-sm-6">
+				<h2>House at a glance</h2>
+				<table class="table table-hover">
+					<tr>
+						<th>Party</th>
+						<th>Number of Reps</th>
+						<th> % Voted with Prty</th>
+					</tr>
+					<tr>
+						<td>Democrats</td>
+						<td>{{numD}}</td>
+						<td>{{demo_ptc}}</td>
+					</tr>
+					<tr>
+						<td>Republicans</td>
+						<td>{{numR}}</td>
+						<td>{{repu_ptc}}</td>
+					</tr>
+					<tr>
+						<td>Independients</td>
+						<td>{{numI}}</td>
+						<td>0</td>
+					</tr>
+					<tr>
+						<td>Total</td>
+						<td>{{numD+numR+numI}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="row-sm-12">
+			<div>
+				<div class="col-sm-6">
+	/////atend//// <h2>Least Engaged (Bottom 10% Attendance)</h2>
+					<table class="table table-hover">
+						<tr>
+							<th>Name</th>
+							<th>Number of Missed Votes</th>
+							<th>% Missed</th>
+						</tr>
+						<tr v-for="member in mostengade">
+							<td><a :href="member.url">{{member.first_name +" "+ member.last_name}}</a></td>
+							<td>{{member.missed_votes}}</td>
+							<td>{{member.missed_votes_pct}}</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<h2>Most Engaged (Top 10% Attendance)</h2>
+				<table class="table table-hover">
+					<tr>
+						<th>Name</th>
+						<th>Number of Missed Votes</th>
+						<th>% Missed</th>
+					</tr>
+					<tr v-for="member in leastengade">
+						<td><a :href="member.url">{{member.first_name +" "+ member.last_name}}</a></td>
+						<td>{{member.missed_votes}}</td>
+						<td>{{member.missed_votes_pct}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="prueba_vue2.js"></script>
+</body>
+</html>

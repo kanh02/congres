@@ -40,10 +40,11 @@
 				</ul>
 			</div>
 		</nav>
-		<!--Table container-->
+		<!---------------------------Table container------------------------------->
 		<div class="panel-heading"></div>
 		<div class="panel-body">
 			<div id="house">
+
 				<h2>Congressmen</h2>
 				<p>The major power of the House is to pass federal legislation that affects the entire country, although its bills must also be passed by the Senate and further agreed to by the U.S. President before becoming law (unless both the House and Senate re-pass the legislation with a two-thirds majority in each chamber). The House has some exclusive powers: the power to initiate revenue bills, to impeach officials (impeached officials are subsequently tried in the Senate), and to elect the U.S. President in case there is no majority in the Electoral College.</p>
 				<p>Each U.S. state is represented in the House in proportion to its population as measured in the census, but every state is entitled to at least one representative. </p>
@@ -72,6 +73,13 @@
 							<td>{{member.votes_with_party_pct}}</td>
 						</tr>
 					</table>
+					<div class="loader" id="loader">
+						<div id="myDiv" class="animate-bottom">
+						</div>
+					</div>
+					<div v-if="members.length == 0">
+						<h3 class="text-center"> No found Senators </h3>
+					</div>
 				</div>
 				<div class="panel-footer">
 				</div>
