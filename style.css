@@ -22,9 +22,6 @@
 }
 
 
-
-
-
 @-webkit-keyframes spin {
 	0% {
 		-webkit-transform: rotate(0deg);
@@ -77,57 +74,10 @@
 	}
 }
 
-
-/*----------------------------------------acordeon inicia aca----------------------------------------*/
-
-@import url('https://fonts.googleapis.com/css?family=Lato');
-
-.accordion {
-
-	font-family: Lato;
-	margin-bottom: 20px;
-	background-color: #2f2f97;
-	border-radius: 6px;
+button{
+	
+	background-color: #34389a;
+	color: aliceblue;
+	
+	
 }
-
-.accordion .header {
-	height: 40px;
-	line-height: 40px;
-	padding: 0 40px 0 8px;
-	position: relative;
-	color: #fff;
-	cursor: pointer;
-	display: flex;
-	justify-content: center;
-}
-
-.accordion .header-icon {
-	position: absolute;
-	top: 5px;
-	right: 8px;
-	transform: rotate(0deg);
-	transition-duration: 0.3s;
-}
-
-.accordion .body {
-	overflow: hidden;
-	background-color: #fff;
-	border: 10px solid white;
-	border-top: 0;
-	border-bottom-left-radius: 6px;
-	border-bottom-right-radius: 6px;
-	transition: 150ms ease-out;
-}
-
-.accordion .body-inner {
-	padding: 8px;
-	overflow-wrap: break-word;
-}
-
-.accordion .header-icon.rotate {
-	transform: rotate(180deg);
-	transition-duration: 0.3s;
-}
-
-
-/*--------------------------acordeon termina------------------------------------------*/

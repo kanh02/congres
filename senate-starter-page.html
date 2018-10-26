@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
@@ -80,7 +79,7 @@
 						<div id="myDiv" class="animate-bottom">
 						</div>
 					</div>
-					<div v-if="members.length == 0">
+					<div v-if="members.length == 0 && backLoader ">
 						<h3 class="text-center"> No found Senators </h3>
 					</div>
 				</div>

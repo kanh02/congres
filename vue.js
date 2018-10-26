@@ -1,46 +1,3 @@
-Vue.component('accordion', {
-  props: ['theme'],
-  
-  template: `<div class="accordion" v-bind:class="theme">
-    <div class="header" v-on:click="toggle">
-      <slot name="header">+More info</slot>
-      <i class="fa fa-2x fa-angle-down header-icon" v-bind:class="{ rotate: show }"></i>
-    </div>
-    <transition name="accordion"
-      v-on:before-enter="beforeEnter" v-on:enter="enter"
-      v-on:before-leave="beforeLeave" v-on:leave="leave">
-      <div class="body" v-show="show">
-        <div class="body-inner">
-          <slot></slot>
-        </div>
-      </div>
-    </transition>
-  </div>`,
-
-  data() {
-    return {
-      show: false
-    };
-  },
-  
-  methods: {
-    toggle: function() {
-      this.show = !this.show;
-    },
-    beforeEnter: function(el) {
-      el.style.height = '0';
-    },
-    enter: function(el) {
-      el.style.height = el.scrollHeight + 'px';
-    },
-    beforeLeave: function(el) {
-      el.style.height = el.scrollHeight + 'px';
-    },
-    leave: function(el) {
-      el.style.height = '0';
-    }
-  }
-});
 
 var app = new Vue({
 	el: '#app',
@@ -48,7 +5,8 @@ var app = new Vue({
 		members: [],
 		membersAll: [],
 		myVar: '',
-		url:''
+		url:'',
+		backLoader:false,
 
 	},
 	created: function () {
@@ -145,6 +103,11 @@ var app = new Vue({
 
 		loader: function () {
 			document.getElementById("loader").style.display = "none";
+			var load = document.getElementById("loader");
+			if(load.style.display == "none"){
+				this.backLoader=true;
+			}
+
 		}
 	}
 })
